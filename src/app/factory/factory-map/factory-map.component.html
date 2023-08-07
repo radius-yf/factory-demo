@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="[0, 0, width, height]">
+  <g dZoom #map="dZoom">
+    <g>
+      <image
+        x="233"
+        y="233"
+        width="1197"
+        height="658"
+        href="../../../assets/工厂布局.png"
+      ></image>
+      <g dZoom #gPoint="dZoom">
+        <image
+          x="600"
+          y="400"
+          width="41"
+          height="29"
+          href="../../../assets/车间选中1.png"
+        ></image>
+      </g>
+    </g>
+  </g>
+
+  <line
+    stroke="#123164"
+    [attr.x1]="gPoint.position.x + map.position.x + 20.5"
+    [attr.y1]="gPoint.position.y + map.position.y + 14.5"
+    [attr.x2]="gFo.position.x + 5"
+    [attr.y2]="gFo.position.y + 5"
+  ></line>
+  <g dZoom #gFo="dZoom">
+    <foreignObject x="0" y="0" width="354" height="265">
+      <div class="item"></div>
+    </foreignObject>
+  </g>
+</svg>

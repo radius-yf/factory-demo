@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
+    <img src="../../../assets/气泡.png" alt="" />
+    <div>
+      <span class="title">本年度转子生产数据</span>
+      <span class="value" data-unit="件">{{ 253753 | number }}</span>
+    </div>
+  </div>
+</div>
+<div *d-zoom></div>
+
+<app-factory-map *cdkPortal></app-factory-map>

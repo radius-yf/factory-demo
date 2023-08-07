@@ -1,0 +1,36 @@
+.container {
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: inset -2px -2px 18px -2px rgb(91 122 168);
+  background: linear-gradient(#0f295c, transparent);
+  display: flex;
+  justify-content: space-evenly;
+
+  .item {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    &:not(:last-child)::after {
+      content: "";
+      display: block;
+      height: 60px;
+      width: 1px;
+      background: linear-gradient(transparent, var(--primary), transparent);
+    }
+    > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .value {
+      &::after {
+        content: attr(data-unit);
+        font-size: 12px;
+        margin-left: 8px;
+      }
+      color: var(--primary);
+      font-size: 36px;
+    }
+  }
+}
