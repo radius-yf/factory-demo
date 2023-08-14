@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="[0, 0, width, height]">
-  <g dZoom #map="dZoom">
+  <g d-zoom #map="dZoom">
     <g>
       <image
         x="233"
@@ -8,7 +8,7 @@
         height="658"
         href="../../../assets/工厂布局.png"
       ></image>
-      <g dZoom #gPoint="dZoom">
+      <g d-zoom #gPoint="dZoom">
         <image
           x="600"
           y="400"
@@ -27,7 +27,7 @@
     [attr.x2]="gFo.position.x + 5"
     [attr.y2]="gFo.position.y + 5"
   ></line>
-  <g dZoom #gFo="dZoom">
+  <g d-zoom #gFo="dZoom">
     <foreignObject x="0" y="0" width="354" height="265">
       <div class="item"></div>
     </foreignObject>

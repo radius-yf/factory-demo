@@ -1,4 +1,11 @@
-.container {
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 16px;
+}
+
+.head {
   border-radius: 16px;
   padding: 16px;
   box-shadow: inset -2px -2px 18px -2px rgb(91 122 168);
@@ -21,6 +28,97 @@
     > div {
       display: flex;
       flex-direction: column;
+    }
+
+    .value {
+      &::after {
+        content: attr(data-unit);
+        font-size: 12px;
+        margin-left: 8px;
+      }
+      color: var(--primary);
+      font-size: 36px;
+    }
+  }
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  .left, .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+  .btns {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: flex-start;
+    gap: 16px;
+    width: 438px;
+    &::after {
+      display: block;
+      content: "";
+      height: 0;
+      opacity: 0;
+      width: 180px;
+    }
+  }
+  .window {
+    width: 438px;
+    height: 239px;
+    background-image: url(../../assets/左侧数据背景.png);
+    color: #ffffff;
+    text-align: center;
+
+    .top {
+      height: 36px;
+      line-height: 36px;
+    }
+    table {
+      width: 100%;
+    }
+  }
+}
+
+.btn {
+  pointer-events: all;
+  background: transparent;
+  border: none;
+  width: 180px;
+  height: 58px;
+  line-height: 58px;
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
+  background-image: url(../../assets/车间未选中.png);
+  &.active {
+    background-image: url(../../assets/车间选中背景.png);
+  }
+}
+
+.grid-container {
+  height: calc(100% - 36px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  
+  .grid-item {
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    > div {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      flex: 0 0 105px;
     }
 
     .value {

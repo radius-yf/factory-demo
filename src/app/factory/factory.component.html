@@ -1,4 +1,4 @@
-<div class="container">
+<div class="head">
   <div class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
     <img src="../../../assets/气泡.png" alt="" />
     <div>
@@ -7,6 +7,83 @@
     </div>
   </div>
 </div>
-<div *d-zoom></div>
+<div class="container">
+  <div class="left">
+    <div class="window">
+      <div class="top">月度生产数据</div>
+    </div>
+    <div class="window">
+      <div class="top">工厂动态下线</div>
+      <table>
+        <thead>
+          <tr>
+            <th>产品名称</th>
+            <th>产品编码</th>
+            <th>报工数量</th>
+            <th>时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Volvo整机</td>
+            <td>01356#</td>
+            <td>1500件</td>
+            <td>2023.6.28</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="window">
+      <div class="top">车间工作状况</div>
+      <div class="grid-container">
+        <div class="grid-item">
+          <img src="../../assets/1在线员工.png" alt="" />
+          <div>
+            <span class="title">在线员工</span>
+            <span class="value" data-unit="人">{{ 12 }}</span>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="../../assets/2在线设备.png" alt="" />
+          <div>
+            <span class="title">在线设备</span>
+            <span class="value" data-unit="台">{{ 10 }}</span>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="../../assets/3设备检查.png" alt="" />
+          <div>
+            <span class="title">设备检查</span>
+            <span class="value" data-unit="次">{{ 3 }}</span>
+          </div>
+        </div>
+        <div class="grid-item">
+          <img src="../../assets/4生产数量.png" alt="" />
+          <div>
+            <span class="title">生产数量/天</span>
+            <span class="value" data-unit="件">{{ 3500 }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="window">
+      <div class="top"></div>
+    </div>
+    <div class="btns">
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+      <button class="btn">BEV3电枢车间</button>
+    </div>
+  </div>
+</div>
 
 <app-factory-map *cdkPortal></app-factory-map>
