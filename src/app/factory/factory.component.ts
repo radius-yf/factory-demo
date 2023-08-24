@@ -1,13 +1,11 @@
+import { CdkPortal } from '@angular/cdk/portal';
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
-  TemplateRef,
   ViewChild,
-  inject,
+  inject
 } from '@angular/core';
 import { LayoutBackgroundService } from '../shared/layout/layout-background.service';
-import { CdkPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-factory',
@@ -16,10 +14,12 @@ import { CdkPortal } from '@angular/cdk/portal';
 })
 export class FactoryComponent implements AfterViewInit {
   @ViewChild(CdkPortal) factoryMap!: CdkPortal;
-  
+
   private portal = inject(LayoutBackgroundService);
 
   ngAfterViewInit(): void {
+    console.log(this.factoryMap);
+
     this.portal.bgTemplate = this.factoryMap;
   }
 }
