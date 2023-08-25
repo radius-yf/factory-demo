@@ -9,4 +9,6 @@ export class LayoutBackgroundService {
     this._bgPortal.next(portal);
   }
   portal = this._bgPortal.pipe(subscribeOn(asyncScheduler), tap(console.log), share());
+
+  bgImage = '';
 }
