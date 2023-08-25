@@ -1,0 +1,24 @@
+:host {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.item {
+    width: 356px;
+    height: 504px;
+    background: url(../../assets/home/导航-选中.png);
+    opacity: 0.3;
+    transform: translateY(-32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    color: #fff;
+    font-size: 32px;
+    &.active {
+        transform: none;
+        opacity: 0.7;
+    }
+}
