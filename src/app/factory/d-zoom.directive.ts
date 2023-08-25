@@ -26,7 +26,6 @@ export class DZoomDirective implements AfterViewInit {
   position: Position = { x: 0, y: 0 };
 
   ngAfterViewInit(): void {
-    console.log(this.parent);
     const node = select(this.template.nativeElement.querySelector('*'));
     const z = zoom<Element, any>()
       .scaleExtent([1, 1])
