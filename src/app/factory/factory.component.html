@@ -1,20 +1,29 @@
 <div class="head">
-  <div class="item" *ngFor="let item of [1, 2, 3, 4, 5, 6]">
-    <img src="../../../assets/气泡.png" alt="" />
-    <div>
-      <span class="title">本年度转子生产数据</span>
-      <span class="value" data-unit="件">{{ 253753 | number }}</span>
+  <ng-container *ngFor="let item of total; let last = last">
+    <div class="item">
+      <img src="../../../assets/气泡.png" alt="" />
+      <div>
+        <span class="title">{{ item.title }}</span>
+        <span class="value" data-unit="件">{{ item.number | number }}</span>
+      </div>
     </div>
-  </div>
+    <div class="driver" *ngIf="!last"></div>
+  </ng-container>
 </div>
 <div class="container">
   <div class="left">
     <div class="window">
-      <div class="top">月度生产数据</div>
+      <div class="top">车间监控</div>
+      <div class="body">
+        <video style="width: 100%;height: 100%;"></video>
+      </div>
     </div>
     <div class="window">
-      <div class="top">工厂动态下线</div>
-      <table>
+      <div class="top">月度生产数据</div>
+      <div class="body">
+        <app-g2-line [data]="lineData"></app-g2-line>
+      </div>
+      <!-- <table>
         <thead>
           <tr>
             <th>产品名称</th>
@@ -31,7 +40,7 @@
             <td>2023.6.28</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
     <div class="window">
       <div class="top">车间工作状况</div>

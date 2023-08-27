@@ -1,9 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="[0, 0, width, height]">
-  <g d-zoom #map="dZoom">
+  <g d-zoom [dZoomPosition]="'center'" #map="dZoom">
     <g>
       <image
-        x="233"
-        y="233"
         width="1197"
         height="658"
         href="../../../assets/工厂布局.png"
@@ -28,7 +26,7 @@
     [attr.y2]="gFo.position.y + 5"
   ></line>
   <g d-zoom #gFo="dZoom">
-    <foreignObject x="0" y="0" width="354" height="265">
+    <foreignObject x="1000" y="300" width="354" height="265">
       <div class="item"></div>
     </foreignObject>
   </g>

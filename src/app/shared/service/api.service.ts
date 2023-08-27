@@ -1,6 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RotorStatorYearData, LineMonthData, WorkshopData, ProductDayData, StoreData, Job } from '../model/request';
+import {
+  RotorStatorYearData,
+  LineMonthData,
+  WorkshopData,
+  ProductDayData,
+  StoreData,
+  Job,
+} from '../model/request';
 
 const prefix = 'http://10.200.190.209:8080/vis/';
 
@@ -12,42 +19,44 @@ export class ApiService {
 
   /**
    * 年度所有转子定子总成报交数
-   * @returns 
+   * @returns
    */
   yearproduction() {
     return this.http.get<RotorStatorYearData[]>(prefix + 'yearproduction');
   }
   /**
    * 车间生产数
-   * @returns 
+   * @returns
    */
   dayproductionworkshop() {
     return this.http.get<WorkshopData[]>(prefix + 'dayproductionworkshop');
   }
   /**
    * 当前产线当年每月生产数
-   * @returns 
+   * @returns
    */
-  line() {
-    return this.http.get<LineMonthData[]>(prefix + 'line');
+  line(line: string) {
+    return this.http.get<LineMonthData[]>(prefix + 'line', {
+      params: { line },
+    });
   }
   /**
    * 工厂各产品日生产数
-   * @returns 
+   * @returns
    */
   dayproduction() {
     return this.http.get<ProductDayData[]>(prefix + 'dayproduction');
   }
   /**
    * 立库数据
-   * @returns 
+   * @returns
    */
   autobank() {
     return this.http.get<StoreData[]>(prefix + 'autobank');
   }
   /**
    * 上岗人员
-   * @returns 
+   * @returns
    */
   job() {
     return this.http.get<Job[]>(prefix + 'job');

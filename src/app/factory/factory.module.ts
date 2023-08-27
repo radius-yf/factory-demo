@@ -6,13 +6,15 @@ import { FactoryComponent } from './factory.component';
 import { FactoryMapComponent } from './factory-map/factory-map.component';
 import { DZoomDirective } from './d-zoom.directive';
 import { PortalModule } from '@angular/cdk/portal';
+import { G2LineComponent } from './g2-line/g2-line.component';
 
 
 @NgModule({
   declarations: [
     FactoryComponent,
     FactoryMapComponent,
-    DZoomDirective
+    DZoomDirective,
+    G2LineComponent
   ],
   imports: [
     CommonModule,
