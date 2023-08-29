@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { LayoutBackgroundService } from '../shared/layout/layout-background.service';
 import { ApiService } from '../shared/service/api.service';
+import { JobSum, ProductDayData, StoreData } from '../shared/model/request';
 
 @Component({
   selector: 'app-factory',
@@ -23,6 +24,12 @@ export class FactoryComponent implements OnInit, AfterViewInit {
   total: { title: string; number: number }[] = [];
 
   lineData: any[] = [];
+
+  productData: ProductDayData[] = [];
+
+  storeData: StoreData[] = [];
+
+  allJobData: JobSum[] = [];
 
   ngOnInit(): void {
     this.api.yearproduction().subscribe((res) => {
@@ -42,12 +49,17 @@ export class FactoryComponent implements OnInit, AfterViewInit {
           value: i.sum,
           name: i.production_line_name,
         }))
-        .sort((a, b) => a.time.getTime() - b.time.getTime())
+        .sort((a, b) => a.time.getTime() - b.time.getTime());
+    });
+    this.api.dayproduction().subscribe((res) => {
+      this.productData = res;
     });
     this.api.autobank().subscribe((res) => {
-      console.log(res);
-      
-    })
+      this.storeData = res;
+    });
+    this.api.jobsum().subscribe((res) => {
+      this.allJobData = res;
+    });
   }
 
   ngAfterViewInit(): void {

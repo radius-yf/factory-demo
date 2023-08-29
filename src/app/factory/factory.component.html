@@ -31,7 +31,7 @@
           <img src="../../assets/1在线员工.png" alt="" />
           <div>
             <span class="title">在线员工</span>
-            <span class="value" data-unit="人">{{ 12 }}</span>
+            <span class="value" data-unit="人">{{ allJobData[0]?.sum }}</span>
           </div>
         </div>
         <div class="grid-item">
@@ -71,29 +71,40 @@
     </div>
     <div class="window">
       <div class="top">库存明细</div>
-      <div class="body"></div>
+      <div class="body">
+        <div class="table">
+          <div class="tr" [ngStyle]="{'grid-template-columns': '2fr 1fr 2fr 1fr'}">
+            <div class="th">产品名称</div>
+            <div class="th">数量</div>
+            <div class="th">产品名称</div>
+            <div class="th">数量</div>
+          </div>
+          <div class="tr" [ngStyle]="{'grid-template-columns': '2fr 1fr 2fr 1fr'}">
+            <ng-container *ngFor="let item of storeData">
+              <div class="td" [title]="item.sku_code">{{ item.sku_code }}</div>
+              <div class="td" [title]="item.qty">{{ item.qty }}</div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="window">
       <div class="top">工厂动态下线</div>
       <div class="body">
-        <table>
-          <thead>
-            <tr>
-              <th>产品名称</th>
-              <th>产品编码</th>
-              <th>报工数量</th>
-              <th>时间</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Volvo整机</td>
-              <td>01356#</td>
-              <td>1500件</td>
-              <td>2023.6.28</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table">
+          <div class="tr">
+            <div class="th">产品名称</div>
+            <div class="th">产品编码</div>
+            <div class="th">报工数量</div>
+            <div class="th">时间</div>
+          </div>
+          <div class="tr" *ngFor="let item of productData">
+            <div class="td" [title]="item.cInvName">{{ item.cInvName }}</div>
+            <div class="td" [title]="item.cinvcode">{{ item.cinvcode }}</div>
+            <div class="td">{{ item.sum }}件</div>
+            <div class="td">{{ item.fdate }}</div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- <div class="btns">

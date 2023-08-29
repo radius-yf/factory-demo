@@ -7,6 +7,7 @@ import {
   ProductDayData,
   StoreData,
   Job,
+  JobSum,
 } from '../model/request';
 
 const prefix = 'http://10.200.190.209:8080/vis/';
@@ -60,5 +61,8 @@ export class ApiService {
    */
   job() {
     return this.http.get<Job[]>(prefix + 'job');
+  }
+  jobsum(area?: string) {
+    return this.http.get<JobSum[]>(prefix + 'jobsum');
   }
 }

@@ -82,6 +82,7 @@
       height: calc(100% - 36px);
       box-sizing: border-box;
       pointer-events: all;
+      overflow: hidden;
     }
     .top {
       height: 36px;
@@ -137,6 +138,24 @@
       }
       color: var(--primary);
       font-size: 36px;
+    }
+  }
+}
+
+.table {
+  white-space: nowrap;
+  .tr {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    overflow: hidden;
+    .th {
+      font-weight: bold;
+      padding: 4px 0;
+    }
+    .td {
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
