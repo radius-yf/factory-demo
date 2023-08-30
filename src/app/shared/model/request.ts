@@ -25,6 +25,7 @@ export interface StoreData {
   area_code: string;
   g4: string;
   sku_code: string;
+  sku_name: string;
   qty: number;
   warehouse_code: string;
 }

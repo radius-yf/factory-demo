@@ -31,7 +31,7 @@
           <img src="../../assets/1在线员工.png" alt="" />
           <div>
             <span class="title">在线员工</span>
-            <span class="value" data-unit="人">{{ allJobData[0]?.sum }}</span>
+            <span class="value" data-unit="人">{{ jobData?.sum }}</span>
           </div>
         </div>
         <div class="grid-item">
@@ -81,7 +81,7 @@
           </div>
           <div class="tr" [ngStyle]="{'grid-template-columns': '2fr 1fr 2fr 1fr'}">
             <ng-container *ngFor="let item of storeData">
-              <div class="td" [title]="item.sku_code">{{ item.sku_code }}</div>
+              <div class="td" [title]="item.sku_code">{{ item.sku_name }}</div>
               <div class="td" [title]="item.qty">{{ item.qty }}</div>
             </ng-container>
           </div>

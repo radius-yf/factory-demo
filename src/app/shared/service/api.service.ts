@@ -29,8 +29,10 @@ export class ApiService {
    * 车间生产数
    * @returns
    */
-  dayproductionworkshop() {
-    return this.http.get<WorkshopData[]>(prefix + 'dayproductionworkshop');
+  dayproductionworkshop(area: string = '') {
+    return this.http.get<WorkshopData[]>(prefix + 'dayproductionworkshop', {
+      params: { area }
+    });
   }
   /**
    * 当前产线当年每月生产数
