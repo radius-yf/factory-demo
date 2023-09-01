@@ -29,7 +29,9 @@ export class FactoryComponent implements OnInit, AfterViewInit {
 
   storeData: StoreData[] = [];
 
-  jobData: JobSum | null = null;
+  jobSum = 0;
+
+  daySum = 0;
 
   ngOnInit(): void {
     this.api.yearproduction().subscribe((res) => {
@@ -58,9 +60,11 @@ export class FactoryComponent implements OnInit, AfterViewInit {
       this.storeData = res;
     });
     this.api.jobsum().subscribe((res) => {
-      this.jobData = res[0];
+      this.jobSum = res[0].sum;
     });
-    this.api.dayproductionworkshop('生产二区').subscribe((res) => {});
+    this.api.dayproductionworkshop('生产二区').subscribe((res) => {
+      this.daySum = res[0].sum;
+    });
   }
 
   ngAfterViewInit(): void {
