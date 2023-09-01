@@ -6,10 +6,11 @@
         height="658"
         href="../../../assets/工厂布局.png"
       ></image>
-      <g d-zoom #gPoint="dZoom">
+      <g *ngFor="let item of areas" d-zoom>
         <image
-          x="600"
-          y="400"
+          (click)="onClick(item)"
+          [attr.x]="item.x"
+          [attr.y]="item.y"
           width="41"
           height="29"
           href="../../../assets/车间选中1.png"
@@ -20,14 +21,16 @@
 
   <line
     stroke="#123164"
-    [attr.x1]="gPoint.position.x + map.position.x + 20.5"
-    [attr.y1]="gPoint.position.y + map.position.y + 14.5"
+    [attr.x1]="current.x + map.position.x + 20.5"
+    [attr.y1]="current.y + map.position.y + 14.5"
     [attr.x2]="gFo.position.x + 5"
     [attr.y2]="gFo.position.y + 5"
   ></line>
   <g d-zoom #gFo="dZoom">
     <foreignObject x="1000" y="300" width="354" height="265">
-      <div class="item"></div>
+      <div class="window">
+        <div class="top">{{ current.area }}</div>
+      </div>
     </foreignObject>
   </g>
 </svg>

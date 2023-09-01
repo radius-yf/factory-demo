@@ -32,4 +32,8 @@ export class LayoutComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.clearPortal.unsubscribe();
   }
+
+  onClick() {
+    this.route.navigate(['/home']);
+  }
 }

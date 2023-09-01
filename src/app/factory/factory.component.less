@@ -83,6 +83,28 @@
       box-sizing: border-box;
       pointer-events: all;
       overflow: hidden;
+      position: relative;
+      &.video {
+        .option {
+          position: absolute;
+          bottom: 8px;
+          left: 0;
+          right: 0;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          pointer-events: none;
+          > div {
+            pointer-events: all;
+            cursor: pointer;
+            user-select: none;
+          }
+        }
+        &:hover .option {
+          display: flex;
+        }
+      }
     }
     .top {
       height: 36px;

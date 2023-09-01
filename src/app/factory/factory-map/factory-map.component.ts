@@ -1,4 +1,13 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  inject,
+} from '@angular/core';
 import { easeLinear, Selection, select, zoom } from 'd3';
 
 function lineEnter<T extends SVGGeometryElement>(
@@ -12,7 +21,6 @@ function lineEnter<T extends SVGGeometryElement>(
     .duration(duration)
     .ease(easeLinear)
     .attr('stroke-dashoffset', 0);
-
 }
 function lineLeave<T extends SVGGeometryElement>(
   line: Selection<T, any, any, any>,
@@ -27,16 +35,29 @@ function lineLeave<T extends SVGGeometryElement>(
     .attr('stroke-dashoffset', line.node()!.getTotalLength());
 }
 
+export const areas = [
+  { area: '生产二区圆铜线', x: 178, y: 249 },
+  { area: '生产二区扁铜线', x: 442, y: 182 },
+  { area: '生产一区滴漆', x: 807, y: 374 },
+  { area: '生产一区', x: 679, y: 294 },
+  { area: '生产三区', x: 810, y: 225 },
+];
+
 @Component({
   selector: 'app-factory-map',
   templateUrl: './factory-map.component.html',
   styleUrls: ['./factory-map.component.less'],
+  exportAs: 'factoryMap',
 })
 export class FactoryMapComponent implements AfterViewInit {
-  private el: ElementRef<HTMLElement> = inject(ElementRef);
-  flag = true;
   width = 0;
   height = 0;
+
+  @Input() areas = areas;
+  @Input() current!: (typeof areas)[number];
+  @Output() currentChange = new EventEmitter();
+
+  private el: ElementRef<HTMLElement> = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
 
   ngAfterViewInit(): void {
@@ -44,15 +65,12 @@ export class FactoryMapComponent implements AfterViewInit {
     this.width = rect.width;
     this.height = rect.height;
     this.cdr.detectChanges();
+
+    this.currentChange.emit(this.current);
   }
-  onClick(g: SVGGElement) {
-    const line = select(g).select<SVGLineElement>('line');
-    if (this.flag) {
-      lineLeave(line, 500);
-      this.flag = false;
-    } else {
-      lineEnter(line, 500);
-      this.flag = true;
-    }
+
+  onClick(item: (typeof areas)[number]) {
+    this.current = item;
+    this.currentChange.emit(this.current);
   }
 }

@@ -7,8 +7,9 @@ import {
   inject,
 } from '@angular/core';
 import { LayoutBackgroundService } from '../shared/layout/layout-background.service';
+import { ProductDayData, StoreData } from '../shared/model/request';
 import { ApiService } from '../shared/service/api.service';
-import { JobSum, ProductDayData, StoreData } from '../shared/model/request';
+import { areas } from './factory-map/factory-map.component';
 
 @Component({
   selector: 'app-factory',
@@ -20,6 +21,7 @@ export class FactoryComponent implements OnInit, AfterViewInit {
 
   private portal = inject(LayoutBackgroundService);
   private api = inject(ApiService);
+  current = areas[0];
 
   total: { title: string; number: number }[] = [];
 
@@ -60,14 +62,26 @@ export class FactoryComponent implements OnInit, AfterViewInit {
       this.storeData = res;
     });
     this.api.jobsum().subscribe((res) => {
-      this.jobSum = res[0].sum;
+      this.jobSum = res.reduce((p,i) => p + i.sum, 0);
     });
-    this.api.dayproductionworkshop('生产二区').subscribe((res) => {
-      this.daySum = res[0].sum;
+    this.refresh(this.current);
+  }
+  refresh(ev: (typeof areas)[number]) {
+    this.api.dayproductionworkshop(ev.area).subscribe((res) => {
+      this.daySum = res.reduce((p,i) => p + i.sum, 0);
     });
   }
 
   ngAfterViewInit(): void {
     this.portal.bgTemplate = this.factoryMap;
+  }
+
+  prev() {
+    this.current = areas[Math.max(0, areas.indexOf(this.current) - 1)];
+    this.refresh(this.current);
+  }
+  next() {
+    this.current = areas[Math.min(areas.length - 1, areas.indexOf(this.current) + 1)];
+    this.refresh(this.current);
   }
 }
