@@ -89,7 +89,7 @@
           </div>
           <div
             class="tr"
-            [ngStyle]="{ 'grid-template-columns': '2fr 1fr 2fr 1fr' }"
+            style="grid-template-columns: 2fr 1fr 2fr 1fr;"
           >
             <ng-container *ngFor="let item of storeData">
               <div class="td" [title]="item.sku_code">{{ item.sku_name }}</div>

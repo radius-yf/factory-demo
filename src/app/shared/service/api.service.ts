@@ -29,19 +29,19 @@ export class ApiService {
    * 车间生产数
    * @returns
    */
-  dayproductionworkshop(area: string = '') {
+  dayproductionworkshop(area?: string) {
+    const params: Record<string, string> = area ? { area } : {};
     return this.http.get<WorkshopData[]>(prefix + 'dayproductionworkshop', {
-      params: { area }
+      params,
     });
   }
   /**
    * 当前产线当年每月生产数
    * @returns
    */
-  line(line: string) {
-    return this.http.get<LineMonthData[]>(prefix + 'line', {
-      params: { line },
-    });
+  line(line?: string) {
+    const params: Record<string, string> = line ? { line } : {};
+    return this.http.get<LineMonthData[]>(prefix + 'line', { params });
   }
   /**
    * 工厂各产品日生产数
@@ -65,6 +65,7 @@ export class ApiService {
     return this.http.get<Job[]>(prefix + 'job');
   }
   jobsum(area?: string) {
-    return this.http.get<JobSum[]>(prefix + 'jobsum');
+    const params: Record<string, string> = area ? { area } : {};
+    return this.http.get<JobSum[]>(prefix + 'jobsum', { params });
   }
 }

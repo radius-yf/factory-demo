@@ -6,7 +6,7 @@
         height="658"
         href="../../../assets/工厂布局.png"
       ></image>
-      <g *ngFor="let item of areas" d-zoom>
+      <g *ngFor="let item of areas">
         <image
           (click)="onClick(item)"
           [attr.x]="item.x"

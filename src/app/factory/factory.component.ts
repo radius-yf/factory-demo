@@ -45,7 +45,7 @@ export class FactoryComponent implements OnInit, AfterViewInit {
           number: i.sum,
         }));
     });
-    this.api.line('MEB转子').subscribe((res) => {
+    this.api.line().subscribe((res) => {
       this.lineData = res
         .map((i) => ({
           time: new Date(i.year_month),
@@ -61,14 +61,14 @@ export class FactoryComponent implements OnInit, AfterViewInit {
     this.api.autobank().subscribe((res) => {
       this.storeData = res;
     });
-    this.api.jobsum().subscribe((res) => {
-      this.jobSum = res.reduce((p,i) => p + i.sum, 0);
-    });
     this.refresh(this.current);
   }
   refresh(ev: (typeof areas)[number]) {
     this.api.dayproductionworkshop(ev.area).subscribe((res) => {
       this.daySum = res.reduce((p,i) => p + i.sum, 0);
+    });
+    this.api.jobsum(ev.area).subscribe((res) => {
+      this.jobSum = res.reduce((p,i) => p + i.sum, 0);
     });
   }
 
