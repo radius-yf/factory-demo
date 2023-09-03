@@ -8,9 +8,9 @@
       ></image>
       <g *ngFor="let item of areas">
         <image
-          (click)="onClick(item)"
           [attr.x]="item.x"
           [attr.y]="item.y"
+          (click)="onClick(item)"
           width="41"
           height="29"
           href="../../../assets/车间选中1.png"
@@ -29,7 +29,7 @@
   <g d-zoom #gFo="dZoom">
     <foreignObject x="1000" y="300" width="354" height="265">
       <div class="window">
-        <div class="top">{{ current.area }}</div>
+        <div class="top">{{ current.area }}({{current.line}})</div>
       </div>
     </foreignObject>
   </g>

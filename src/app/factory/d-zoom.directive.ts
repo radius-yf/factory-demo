@@ -2,8 +2,10 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
+  EventEmitter,
   inject,
   Input,
+  Output,
 } from '@angular/core';
 import { D3ZoomEvent, select, zoom } from 'd3';
 
@@ -29,6 +31,11 @@ export class DZoomDirective implements AfterViewInit {
   });
   @Input() dZoomPosition?: Position | 'center';
 
+  @Output() move = new EventEmitter<{
+    x: number;
+    y: number;
+  }>();
+
   position: ZoomTransform = { x: 0, y: 0, k: 1 };
 
   ngAfterViewInit(): void {
@@ -53,6 +60,10 @@ export class DZoomDirective implements AfterViewInit {
         y: ev.transform.y + Number(node.attr('y')),
         k: ev.transform.k,
       };
+      this.move.emit({
+        x: ev.transform.x + Number(node.attr('x')),
+        y: ev.transform.y + Number(node.attr('y')),
+      })
     });
     this.position = {
       x: Number(node.attr('x')),
