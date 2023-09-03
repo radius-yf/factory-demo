@@ -77,11 +77,8 @@
     <div class="window">
       <div class="top">库存明细</div>
       <div class="body">
-        <div class="table">
-          <div
-            class="tr"
-            [ngStyle]="{ 'grid-template-columns': '2fr 1fr 2fr 1fr' }"
-          >
+        <div class="table" #table>
+          <div class="tr" style="grid-template-columns: 2fr 1fr 2fr 1fr;">
             <div class="th">产品名称</div>
             <div class="th">数量</div>
             <div class="th">产品名称</div>
@@ -121,4 +118,8 @@
   </div>
 </div>
 
-<app-factory-map *cdkPortal [(current)]="current" (currentChange)="refresh($event)"></app-factory-map>
+<app-factory-map
+  *cdkPortal
+  [(current)]="current"
+  (currentChange)="refresh($event)"
+></app-factory-map>

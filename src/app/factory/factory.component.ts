@@ -2,6 +2,8 @@ import { CdkPortal } from '@angular/cdk/portal';
 import {
   AfterViewInit,
   Component,
+  ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
   inject,
@@ -10,14 +12,16 @@ import { LayoutBackgroundService } from '../shared/layout/layout-background.serv
 import { ProductDayData, StoreData } from '../shared/model/request';
 import { ApiService } from '../shared/service/api.service';
 import { areas } from './factory-map/factory-map.component';
+import { Subject, interval, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-factory',
   templateUrl: './factory.component.html',
   styleUrls: ['./factory.component.less'],
 })
-export class FactoryComponent implements OnInit, AfterViewInit {
+export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(CdkPortal) factoryMap!: CdkPortal;
+  @ViewChild('table') table!: ElementRef<HTMLElement>;
 
   private portal = inject(LayoutBackgroundService);
   private api = inject(ApiService);
@@ -35,6 +39,20 @@ export class FactoryComponent implements OnInit, AfterViewInit {
 
   daySum = 0;
 
+  private subject = new Subject<void>();
+
+  private scription = this.subject
+    .pipe(switchMap(() => interval(3000)))
+    .subscribe((val) => {
+      this.table.nativeElement.scrollTo({
+        top: val * 25,
+        behavior: 'smooth',
+      });
+      if (this.table.nativeElement.scrollHeight - this.table.nativeElement.clientHeight <= this.table.nativeElement.scrollTop) {
+        this.subject.next();
+      }
+    });
+
   ngOnInit(): void {
     this.api.yearproduction().subscribe((res) => {
       const year = new Date().getFullYear().toString();
@@ -45,7 +63,26 @@ export class FactoryComponent implements OnInit, AfterViewInit {
           number: i.sum,
         }));
     });
-    this.api.line().subscribe((res) => {
+    this.api.dayproduction().subscribe((res) => {
+      this.productData = res;
+    });
+    this.api.autobank().subscribe((res) => {
+      this.storeData = res;
+      this.subject.next();
+    });
+    this.refresh(this.current);
+  }
+  ngOnDestroy(): void {
+    this.scription.unsubscribe();
+  }
+  refresh(ev: (typeof areas)[number]) {
+    this.api.dayproductionworkshop(ev.area).subscribe((res) => {
+      this.daySum = res.reduce((p, i) => p + i.sum, 0);
+    });
+    this.api.jobsum(ev.area).subscribe((res) => {
+      this.jobSum = res.reduce((p, i) => p + i.sum, 0);
+    });
+    this.api.line(ev.line).subscribe((res) => {
       this.lineData = res
         .map((i) => ({
           time: new Date(i.year_month),
@@ -54,21 +91,6 @@ export class FactoryComponent implements OnInit, AfterViewInit {
           name: i.production_line_name,
         }))
         .sort((a, b) => a.time.getTime() - b.time.getTime());
-    });
-    this.api.dayproduction().subscribe((res) => {
-      this.productData = res;
-    });
-    this.api.autobank().subscribe((res) => {
-      this.storeData = res;
-    });
-    this.refresh(this.current);
-  }
-  refresh(ev: (typeof areas)[number]) {
-    this.api.dayproductionworkshop(ev.area).subscribe((res) => {
-      this.daySum = res.reduce((p,i) => p + i.sum, 0);
-    });
-    this.api.jobsum(ev.area).subscribe((res) => {
-      this.jobSum = res.reduce((p,i) => p + i.sum, 0);
     });
   }
 
@@ -81,7 +103,8 @@ export class FactoryComponent implements OnInit, AfterViewInit {
     this.refresh(this.current);
   }
   next() {
-    this.current = areas[Math.min(areas.length - 1, areas.indexOf(this.current) + 1)];
+    this.current =
+      areas[Math.min(areas.length - 1, areas.indexOf(this.current) + 1)];
     this.refresh(this.current);
   }
 }
