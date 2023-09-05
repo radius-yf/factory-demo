@@ -37,3 +37,20 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+footer {
+  position: fixed;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: -600px;
+  z-index: 1000;
+  width: 729px;
+  border-radius: 729px;
+  overflow: hidden;
+
+  transition: all 0.5s;
+  &:hover {
+    bottom: -500px;
+  }
+}

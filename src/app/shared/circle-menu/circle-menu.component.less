@@ -1,0 +1,46 @@
+:host {
+  pointer-events: none;
+  display: block;
+  width: 729px;
+  height: 729px;
+  border-radius: 729px;
+  background: url(../../../assets/转盘-完整.png);
+  background-size: contain;
+  color: var(--primary);
+  position: relative;
+  transition: transform 1s ease;
+}
+
+.item {
+  position: absolute;
+  margin: auto;
+  width: 180px;
+  height: 36px;
+  line-height: 36px;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+
+  &:nth-child(1) {
+    transform: rotate(60deg) translateY(-290px);
+  }
+  &:nth-child(2) {
+    transform: rotate(120deg) translateY(-290px);
+  }
+  &:nth-child(3) {
+    transform: rotate(180deg) translateY(-290px);
+  }
+  &:nth-child(4) {
+    transform: rotate(240deg) translateY(-290px);
+  }
+  &:nth-child(5) {
+    transform: rotate(300deg) translateY(-290px);
+  }
+
+  span {
+    cursor: pointer;
+    pointer-events: all;
+  }
+}

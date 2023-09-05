@@ -8,11 +8,31 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
+import { Subject, startWith, switchMap, takeUntil, tap, timer } from 'rxjs';
 import { LayoutBackgroundService } from '../shared/layout/layout-background.service';
 import { ProductDayData, StoreData } from '../shared/model/request';
 import { ApiService } from '../shared/service/api.service';
 import { areas } from './factory-map/factory-map.component';
-import { Subject, interval, map, switchMap } from 'rxjs';
+
+function gundong(dom: HTMLElement) {
+  const subject = new Subject<void>();
+  return subject.pipe(
+    startWith(1),
+    switchMap(() => timer(1000, 100)),
+    tap((val) => {
+      dom.scrollTo({
+        top: val,
+        behavior: 'smooth',
+      });
+      if (dom.scrollHeight - dom.clientHeight <= dom.scrollTop) {
+        setTimeout(() => {
+          subject.next();
+          dom.scrollTo({ top: 0 });
+        }, 1000);
+      }
+    })
+  );
+}
 
 @Component({
   selector: 'app-factory',
@@ -22,6 +42,7 @@ import { Subject, interval, map, switchMap } from 'rxjs';
 export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(CdkPortal) factoryMap!: CdkPortal;
   @ViewChild('table') table!: ElementRef<HTMLElement>;
+  @ViewChild('table2') table2!: ElementRef<HTMLElement>;
 
   private portal = inject(LayoutBackgroundService);
   private api = inject(ApiService);
@@ -39,19 +60,15 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   daySum = 0;
 
-  private subject = new Subject<void>();
+  mapper: Record<string, number> = {
+    生产二区扁铜线: 126,
+    生产二区圆铜线: 80,
+    生产一区滴漆: 38,
+    生产一区: 135,
+    生产三区: 120,
+  };
 
-  private scription = this.subject
-    .pipe(switchMap(() => interval(3000)))
-    .subscribe((val) => {
-      this.table.nativeElement.scrollTo({
-        top: val * 25,
-        behavior: 'smooth',
-      });
-      if (this.table.nativeElement.scrollHeight - this.table.nativeElement.clientHeight <= this.table.nativeElement.scrollTop) {
-        this.subject.next();
-      }
-    });
+  private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     this.api.yearproduction().subscribe((res) => {
@@ -65,15 +82,21 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.api.dayproduction().subscribe((res) => {
       this.productData = res;
+      gundong(this.table2.nativeElement)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe();
     });
     this.api.autobank().subscribe((res) => {
       this.storeData = res;
-      this.subject.next();
+      gundong(this.table.nativeElement)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe();
     });
     this.refresh(this.current);
   }
   ngOnDestroy(): void {
-    this.scription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
   refresh(ev: (typeof areas)[number]) {
     this.api.dayproductionworkshop(ev.area).subscribe((res) => {

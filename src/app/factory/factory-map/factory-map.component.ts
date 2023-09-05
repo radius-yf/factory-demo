@@ -52,13 +52,13 @@ export const areas = [
   { area: '生产三区', line: 'BEV3漆前电枢', x: 497, y: 357 },
   { area: '生产二区圆铜线', line: 'MEB转子二期', x: 178, y: 243 },
   { area: '生产三区', line: 'VOLVO总装线', x: 864, y: 189 },
-  { area: '生产三区', line: 'VOLVO定子线', x: 753, y: 180 },
+  { area: '生产三区', line: 'VOLVO漆后定子线', x: 753, y: 180 },
   { area: '生产一区滴漆', line: '绝缘车间（VOLVO）', x: 787, y: 156 },
   { area: '生产一区滴漆', line: 'MEB及小电轴滴漆扩能产线', x: 733, y: 132 },
   { area: '生产二区扁铜线', line: 'C轴电枢线', x: 436, y: 190 },
   { area: '生产三区', line: 'BEV3漆后电枢', x: 610, y: 430 },
   { area: '生产二区扁铜线', line: '注塑转子二号线', x: 409, y: 374 },
-  { area: '生产一区', line: 'Volvo漆后定子线', x: 802, y: 194 }
+  { area: '生产三区', line: 'VOLVO定子线', x: 802, y: 194 }
 ];
 
 @Component({

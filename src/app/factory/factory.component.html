@@ -13,6 +13,12 @@
 <div class="container">
   <div class="left">
     <div class="window">
+      <div class="top">产线月度生产数据</div>
+      <div class="body">
+        <app-g2-line [data]="lineData"></app-g2-line>
+      </div>
+    </div>
+    <div class="window">
       <div class="top">车间监控</div>
       <div class="body video">
         <video style="width: 100%; height: 100%"></video>
@@ -21,12 +27,6 @@
           <div>{{ current.area }}</div>
           <div (click)="next()">&gt;</div>
         </div>
-      </div>
-    </div>
-    <div class="window">
-      <div class="top">月度生产数据</div>
-      <div class="body">
-        <app-g2-line [data]="lineData"></app-g2-line>
       </div>
     </div>
     <div class="window">
@@ -43,7 +43,7 @@
           <img src="../../assets/2在线设备.png" alt="" />
           <div>
             <span class="title">在线设备</span>
-            <span class="value" data-unit="台">{{ 10 }}</span>
+            <span class="value" data-unit="台">{{ mapper[current.area] }}</span>
           </div>
         </div>
         <div class="grid-item">
@@ -99,7 +99,7 @@
     <div class="window">
       <div class="top">工厂动态下线</div>
       <div class="body">
-        <div class="table">
+        <div class="table" #table2>
           <div class="tr">
             <div class="th">产品名称</div>
             <div class="th">产品编码</div>
