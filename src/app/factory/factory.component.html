@@ -1,4 +1,7 @@
 <div class="head">
+  <div class="right-top">
+    持续生产 <span> {{ daysBetween }} </span> 天
+  </div>
   <ng-container *ngFor="let item of total; let last = last">
     <div class="item">
       <img src="../../../assets/气泡.png" alt="" />
@@ -77,21 +80,22 @@
     <div class="window">
       <div class="top">库存明细</div>
       <div class="body">
-        <div class="table" #table>
-          <div class="tr" style="grid-template-columns: 2fr 1fr 2fr 1fr;">
-            <div class="th">产品名称</div>
-            <div class="th">数量</div>
+        <div class="table">
+          <div class="tr" style="grid-template-columns: 2fr 2fr 1fr">
+            <div class="th">箱号</div>
             <div class="th">产品名称</div>
             <div class="th">数量</div>
           </div>
-          <div
-            class="tr"
-            style="grid-template-columns: 2fr 1fr 2fr 1fr;"
-          >
-            <ng-container *ngFor="let item of storeData">
-              <div class="td" [title]="item.sku_code">{{ item.sku_name }}</div>
+          <div class="tbody" #table>
+            <div
+              class="tr"
+              *ngFor="let item of storeData"
+              style="grid-template-columns: 2fr 2fr 1fr"
+            >
+              <div class="td" [title]="item.sku_code">{{ item.sku_code }}</div>
+              <div class="td" [title]="item.sku_name">{{ item.sku_name }}</div>
               <div class="td" [title]="item.qty">{{ item.qty }}</div>
-            </ng-container>
+            </div>
           </div>
         </div>
       </div>
@@ -99,18 +103,20 @@
     <div class="window">
       <div class="top">工厂动态下线</div>
       <div class="body">
-        <div class="table" #table2>
+        <div class="table">
           <div class="tr">
             <div class="th">产品名称</div>
             <div class="th">产品编码</div>
             <div class="th">报工数量</div>
             <div class="th">时间</div>
           </div>
-          <div class="tr" *ngFor="let item of productData">
-            <div class="td" [title]="item.cInvName">{{ item.cInvName }}</div>
-            <div class="td" [title]="item.cinvcode">{{ item.cinvcode }}</div>
-            <div class="td">{{ item.sum }}件</div>
-            <div class="td">{{ item.fdate }}</div>
+          <div class="tbody" #table2>
+            <div class="tr" *ngFor="let item of productData">
+              <div class="td" [title]="item.cInvName">{{ item.cInvName }}</div>
+              <div class="td" [title]="item.cinvcode">{{ item.cinvcode }}</div>
+              <div class="td">{{ item.sum }}件</div>
+              <div class="td">{{ item.fdate }}</div>
+            </div>
           </div>
         </div>
       </div>

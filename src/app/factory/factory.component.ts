@@ -8,7 +8,15 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { Subject, startWith, switchMap, takeUntil, tap, timer } from 'rxjs';
+import {
+  Subject,
+  forkJoin,
+  startWith,
+  switchMap,
+  takeUntil,
+  tap,
+  timer,
+} from 'rxjs';
 import { LayoutBackgroundService } from '../shared/layout/layout-background.service';
 import { ProductDayData, StoreData } from '../shared/model/request';
 import { ApiService } from '../shared/service/api.service';
@@ -34,6 +42,11 @@ function gundong(dom: HTMLElement) {
   );
 }
 
+const currentDate = new Date().getTime();
+const startDate = new Date(2019, 2, 1).getTime();
+const day = 24 * 60 * 60 * 1000;
+const diff = Math.floor((currentDate - startDate) / day);
+
 @Component({
   selector: 'app-factory',
   templateUrl: './factory.component.html',
@@ -46,6 +59,7 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private portal = inject(LayoutBackgroundService);
   private api = inject(ApiService);
+  daysBetween = diff;
   current = areas[0];
 
   total: { title: string; number: number }[] = [];
@@ -68,17 +82,35 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
     生产三区: 120,
   };
 
+  private refresh$ = new Subject<(typeof areas)[number]>();
   private destroy$ = new Subject<void>();
+  private _ref = this.refresh$
+    .pipe(
+      switchMap((ev) =>
+        forkJoin([
+          this.api.dayproductionworkshop(ev.area),
+          this.api.jobsum(ev.area),
+          this.api.line(ev.line),
+        ])
+      ),
+      takeUntil(this.destroy$)
+    )
+    .subscribe(([res1, res2, res3]) => {
+      this.daySum = res1.reduce((p, i) => p + i.sum, 0);
+      this.jobSum = res2.reduce((p, i) => p + i.sum, 0);
+      this.lineData = res3
+        .map((i) => ({
+          time: new Date(i.year_month),
+          month: i.year_month,
+          value: i.sum,
+          name: i.production_line_name,
+        }))
+        .sort((a, b) => a.time.getTime() - b.time.getTime());
+    });
 
   ngOnInit(): void {
     this.api.yearproduction().subscribe((res) => {
-      const year = new Date().getFullYear().toString();
-      this.total = res
-        .filter((item) => item.year === year)
-        .map((i) => ({
-          title: `本年度${i.type}生产数`,
-          number: i.sum,
-        }));
+      this.total = res;
     });
     this.api.dayproduction().subscribe((res) => {
       this.productData = res;
@@ -99,22 +131,7 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
     this.destroy$.complete();
   }
   refresh(ev: (typeof areas)[number]) {
-    this.api.dayproductionworkshop(ev.area).subscribe((res) => {
-      this.daySum = res.reduce((p, i) => p + i.sum, 0);
-    });
-    this.api.jobsum(ev.area).subscribe((res) => {
-      this.jobSum = res.reduce((p, i) => p + i.sum, 0);
-    });
-    this.api.line(ev.line).subscribe((res) => {
-      this.lineData = res
-        .map((i) => ({
-          time: new Date(i.year_month),
-          month: i.year_month,
-          value: i.sum,
-          name: i.production_line_name,
-        }))
-        .sort((a, b) => a.time.getTime() - b.time.getTime());
-    });
+    this.refresh$.next(ev);
   }
 
   ngAfterViewInit(): void {

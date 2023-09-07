@@ -4,7 +4,22 @@
   flex: 1;
   gap: 16px;
 }
-
+.right-top {
+  position: fixed;
+  right: 24px;
+  top: 24px;
+  border-radius: 16px;
+  padding: 8px 16px;
+  box-shadow: inset -2px -2px 18px -2px rgb(91 122 168);
+  background: linear-gradient(#0f295c, transparent);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color: var(--primary);
+  span {
+    font-size: 32px;
+  }
+}
 .head {
   border-radius: 16px;
   padding: 16px;
@@ -168,11 +183,12 @@
   white-space: nowrap;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   .tr {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 4px;
-    overflow: hidden;
     .th {
       font-weight: bold;
       padding: 4px 0;
@@ -181,5 +197,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+  .tbody {
+    flex: 1;
+    overflow: hidden;
   }
 }

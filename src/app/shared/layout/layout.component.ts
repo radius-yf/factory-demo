@@ -27,7 +27,6 @@ export class LayoutComponent implements OnDestroy {
     map((e) => e.url),
     startWith(location.href),
     map((url) => {
-      console.log(url);
       const index = menus.findIndex((m) => url.endsWith(m.path));
       console.log(index);
       return menus.length - index;

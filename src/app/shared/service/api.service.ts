@@ -9,6 +9,7 @@ import {
   Job,
   JobSum,
 } from '../model/request';
+import { forkJoin, map } from 'rxjs';
 
 const prefix = 'http://10.200.190.209:8080/vis/';
 
@@ -23,7 +24,25 @@ export class ApiService {
    * @returns
    */
   yearproduction() {
-    return this.http.get<RotorStatorYearData[]>(prefix + 'yearproduction');
+    const year = new Date().getFullYear().toString();
+    return forkJoin([
+      this.http.get<RotorStatorYearData[]>(prefix + 'yearproduction'),
+      this.http.get<{ type: string; sumall: number }[]>(
+        prefix + 'yearproductionall'
+      ),
+    ]).pipe(
+      map(([res1, res2]) =>
+        res1
+          .filter((item) => item.year === year)
+          .map((i) => ({ title: `本年度${i.type}生产数`, number: i.sum }))
+          .concat(
+            res2.map((i) => ({
+              title: `累计${i.type}生产数`,
+              number: i.sumall,
+            }))
+          )
+      )
+    );
   }
   /**
    * 车间生产数

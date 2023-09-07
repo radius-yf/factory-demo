@@ -8,13 +8,23 @@
       ></image>
       <g *ngFor="let item of areas">
         <image
-          [attr.x]="item.x"
-          [attr.y]="item.y"
-          (click)="onClick(item)"
-          width="41"
-          height="29"
-          href="../../../assets/车间选中1.png"
+          [attr.x]="item.x - 36"
+          [attr.y]="item.y - 34"
+          width="180"
+          height="58"
+          [attr.href]="item === current ? '../../../assets/车间选中背景.png' : '../../../assets/车间未选中.png'"
         ></image>
+        <foreignObject
+          [attr.x]="item.x - 36"
+          [attr.y]="item.y - 34"
+          (click)="onClick(item)"
+          width="180"
+          height="58"
+        >
+          <div style="line-height: 58px; text-align: center;color:var(--primary)">
+            {{ item.line }}
+          </div>
+        </foreignObject>
       </g>
     </g>
   </g>
@@ -29,7 +39,7 @@
   <g d-zoom #gFo="dZoom">
     <foreignObject x="500" y="600" width="354" height="265">
       <div class="window">
-        <div class="top">{{ current.area }}({{current.line}})</div>
+        <div class="top">{{ current.area }}({{ current.line }})</div>
       </div>
     </foreignObject>
   </g>
