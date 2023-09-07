@@ -1,15 +1,45 @@
-<div class="item">
-    <img src="../../assets/home/荣誉选中.png" alt="">
-    <div>荣誉资质</div>
-    <div style="font-size: 24px;">HONOR</div>
+<div
+  class="item"
+  [ngClass]="['item-' + arr[0]]"
+  (click)="onClick(arr[0], '/detail')"
+>
+  <img src="../../assets/home/实验室选中.png" alt="" />
+  <div>实验室</div>
+  <div class="text-sm">LABORATORY</div>
 </div>
-<div class="item active" [routerLink]="['/detail']">
-    <img src="../../assets/home/公司简介-选中.png" alt="">
-    <div>公司简介</div>
-    <div style="font-size: 24px;">PROFILE</div>
+<div
+  class="item"
+  [ngClass]="['item-' + arr[1]]"
+  (click)="onClick(arr[1], '/detail')"
+>
+  <img src="../../assets/home/荣誉选中.png" alt="" />
+  <div>荣誉资质</div>
+  <div class="text-sm">HONOR</div>
 </div>
-<div class="item">
-    <img src="../../assets/home/客户-选中.png" alt="">
-    <div>我们的客户</div>
-    <div style="font-size: 24px;">CUSTOM</div>
+<div
+  class="item"
+  [ngClass]="['item-' + arr[2]]"
+  (click)="onClick(arr[2], '/detail')"
+>
+  <img src="../../assets/home/公司简介-选中.png" alt="" />
+  <div>公司简介</div>
+  <div class="text-sm">PROFILE</div>
 </div>
+<div
+  class="item"
+  [ngClass]="['item-' + arr[3]]"
+  (click)="onClick(arr[3], '/detail')"
+>
+  <img src="../../assets/home/客户-选中.png" alt="" />
+  <div>我们的客户</div>
+  <div class="text-sm">CUSTOM</div>
+</div>
+<!-- <div
+  class="item"
+  [ngClass]="['item-' + arr[4]]"
+  (click)="onClick(arr[4], '/detail')"
+>
+  <img src="../../assets/home/客户-选中.png" alt="" />
+  <div>我们的客户</div>
+  <div class="text-sm">CUSTOM</div>
+</div> -->

@@ -18,7 +18,7 @@ import {
   timer,
 } from 'rxjs';
 import { LayoutBackgroundService } from '../shared/layout/layout-background.service';
-import { ProductDayData, StoreData } from '../shared/model/request';
+import { Deliver, ProductDayData, StoreData } from '../shared/model/request';
 import { ApiService } from '../shared/service/api.service';
 import { areas } from './factory-map/factory-map.component';
 
@@ -68,7 +68,7 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
 
   productData: ProductDayData[] = [];
 
-  storeData: StoreData[] = [];
+  storeData: Deliver[] = [];
 
   jobSum = 0;
 
@@ -88,8 +88,8 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
     .pipe(
       switchMap((ev) =>
         forkJoin([
-          this.api.dayproductionworkshop(ev.area),
-          this.api.jobsum(ev.area),
+          this.api.dayproduction(ev.line),
+          this.api.jobsum(ev.line),
           this.api.line(ev.line),
         ])
       ),
@@ -118,7 +118,7 @@ export class FactoryComponent implements OnInit, OnDestroy, AfterViewInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe();
     });
-    this.api.autobank().subscribe((res) => {
+    this.api.deliver().subscribe((res) => {
       this.storeData = res;
       gundong(this.table.nativeElement)
         .pipe(takeUntil(this.destroy$))

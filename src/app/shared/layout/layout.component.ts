@@ -26,11 +26,7 @@ export class LayoutComponent implements OnDestroy {
     filter((e): e is NavigationEnd => e instanceof NavigationEnd),
     map((e) => e.url),
     startWith(location.href),
-    map((url) => {
-      const index = menus.findIndex((m) => url.endsWith(m.path));
-      console.log(index);
-      return menus.length - index;
-    })
+    map((url) => menus.length - menus.findIndex((m) => url.endsWith(m.path)))
   );
 
   private clearPortal = this.router.events

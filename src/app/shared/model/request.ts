@@ -39,3 +39,10 @@ export interface JobSum {
   production_area: string;
   sum: number;
 }
+
+export interface Deliver {
+  cinvName: string;
+  iQuantity: string;
+  cCusName: string;
+  dDate: string;
+}

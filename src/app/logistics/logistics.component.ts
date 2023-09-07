@@ -12,8 +12,6 @@ export class LogisticsComponent implements AfterViewInit {
   private portal = inject(LayoutBackgroundService);
 
   ngAfterViewInit(): void {
-    console.log('??', this.logisticsMap);
-    
     this.portal.bgTemplate = this.logisticsMap;
   }
 }

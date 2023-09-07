@@ -8,6 +8,7 @@ import {
   StoreData,
   Job,
   JobSum,
+  Deliver,
 } from '../model/request';
 import { forkJoin, map } from 'rxjs';
 
@@ -66,8 +67,11 @@ export class ApiService {
    * 工厂各产品日生产数
    * @returns
    */
-  dayproduction() {
-    return this.http.get<ProductDayData[]>(prefix + 'dayproduction');
+  dayproduction(line?: string) {
+    const params: Record<string, string> = line ? { line } : {};
+    return this.http.get<ProductDayData[]>(prefix + 'dayproduction', {
+      params,
+    });
   }
   /**
    * 立库数据
@@ -83,8 +87,15 @@ export class ApiService {
   job() {
     return this.http.get<Job[]>(prefix + 'job');
   }
-  jobsum(area?: string) {
-    const params: Record<string, string> = area ? { area } : {};
+  jobsum(line?: string) {
+    const params: Record<string, string> = line ? { line } : {};
     return this.http.get<JobSum[]>(prefix + 'jobsum', { params });
+  }
+
+  /**
+   * 当日动态销售情况
+   */
+  deliver() {
+    return this.http.get<Deliver[]>(prefix + 'deliver');
   }
 }

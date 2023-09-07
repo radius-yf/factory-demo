@@ -8,7 +8,7 @@ export class LayoutBackgroundService {
   set bgTemplate(portal: TemplatePortal | null) {
     this._bgPortal.next(portal);
   }
-  portal = this._bgPortal.pipe(subscribeOn(asyncScheduler), tap(console.log), share());
+  portal = this._bgPortal.pipe(subscribeOn(asyncScheduler), share());
 
   bgImage = '';
 }

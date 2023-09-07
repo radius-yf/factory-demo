@@ -7,38 +7,38 @@
         href="../../../assets/工厂布局.png"
       ></image>
       <g *ngFor="let item of areas">
-        <image
-          [attr.x]="item.x - 36"
-          [attr.y]="item.y - 34"
-          width="180"
-          height="58"
-          [attr.href]="item === current ? '../../../assets/车间选中背景.png' : '../../../assets/车间未选中.png'"
-        ></image>
         <foreignObject
-          [attr.x]="item.x - 36"
-          [attr.y]="item.y - 34"
-          (click)="onClick(item)"
-          width="180"
-          height="58"
+          [attr.x]="item.x"
+          [attr.y]="item.y"
+          width="134"
+          height="43"
         >
-          <div style="line-height: 58px; text-align: center;color:var(--primary)">
+          <div
+            class="btn"
+            [ngClass]="{ active: item === current }"
+            (click)="onClick(item)"
+          >
             {{ item.line }}
           </div>
         </foreignObject>
       </g>
     </g>
   </g>
-
-  <line
-    stroke="#123164"
-    [attr.x1]="current.x + map.position.x + 20.5"
-    [attr.y1]="current.y + map.position.y + 14.5"
-    [attr.x2]="gFo.position.x + 5"
-    [attr.y2]="gFo.position.y + 5"
-  ></line>
-  <g d-zoom #gFo="dZoom">
-    <foreignObject x="500" y="600" width="354" height="265">
-      <div class="window">
+  <!-- <line
+      stroke="#123164"
+      [attr.x1]="current.x + map.position.x + 20.5"
+      [attr.y1]="current.y + map.position.y + 14.5"
+      [attr.x2]="gFo.position.x + 5"
+      [attr.y2]="gFo.position.y + 5"
+    ></line> -->
+  <g [ngClass]="[isShow ? '' : 'hidden']">
+    <foreignObject
+      [attr.x]="current.x + 300"
+      [attr.y]="current.y - 120"
+      width="354"
+      height="265"
+    >
+      <div class="window" (click)="log()">
         <div class="top">{{ current.area }}({{ current.line }})</div>
       </div>
     </foreignObject>
