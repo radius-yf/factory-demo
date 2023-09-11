@@ -27,7 +27,7 @@
         <video style="width: 100%; height: 100%"></video>
         <div class="option">
           <div (click)="prev()">&lt;</div>
-          <div>{{ current.area }}</div>
+          <div>{{ current.line }}</div>
           <div (click)="next()">&gt;</div>
         </div>
       </div>
@@ -89,7 +89,7 @@
           </div>
           <div class="tbody" #table>
             <div class="tr" *ngFor="let item of storeData">
-              <div class="td" [title]="item.cinvName">{{ item.cinvName }}</div>
+              <div class="td" [title]="item.cInvName">{{ item.cInvName }}</div>
               <div class="td" [title]="item.iQuantity">{{ item.iQuantity }}</div>
               <div class="td" [title]="item.cCusName">{{ item.cCusName }}</div>
               <div class="td" [title]="item.dDate">{{ item.dDate }}</div>

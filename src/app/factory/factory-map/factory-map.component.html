@@ -22,25 +22,27 @@
           </div>
         </foreignObject>
       </g>
+
+      <line
+        [ngClass]="[isShow ? '' : 'hidden']"
+        stroke="#123164"
+        [attr.x1]="current.x + 75"
+        [attr.y1]="current.y + 15"
+        [attr.x2]="current.x + 75"
+        [attr.y2]="current.y - 275"
+      ></line>
+      <g [ngClass]="[isShow ? '' : 'hidden']">
+        <foreignObject
+          [attr.x]="current.x + 70"
+          [attr.y]="current.y - 270"
+          width="354"
+          height="265"
+        >
+          <div class="window" (click)="log()">
+            <div class="top">{{ current.area }}({{ current.line }})</div>
+          </div>
+        </foreignObject>
+      </g>
     </g>
-  </g>
-  <!-- <line
-      stroke="#123164"
-      [attr.x1]="current.x + map.position.x + 20.5"
-      [attr.y1]="current.y + map.position.y + 14.5"
-      [attr.x2]="gFo.position.x + 5"
-      [attr.y2]="gFo.position.y + 5"
-    ></line> -->
-  <g [ngClass]="[isShow ? '' : 'hidden']">
-    <foreignObject
-      [attr.x]="current.x + 300"
-      [attr.y]="current.y - 120"
-      width="354"
-      height="265"
-    >
-      <div class="window" (click)="log()">
-        <div class="top">{{ current.area }}({{ current.line }})</div>
-      </div>
-    </foreignObject>
   </g>
 </svg>

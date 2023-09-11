@@ -41,7 +41,7 @@ export interface JobSum {
 }
 
 export interface Deliver {
-  cinvName: string;
+  cInvName: string;
   iQuantity: string;
   cCusName: string;
   dDate: string;
