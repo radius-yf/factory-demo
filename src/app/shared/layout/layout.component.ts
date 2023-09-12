@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnDestroy, inject } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { filter, map, startWith } from 'rxjs';
+import { filter, map, startWith, tap } from 'rxjs';
 import { menus } from '../circle-menu/circle-menu.component';
 import { LayoutBackgroundService } from './layout-background.service';
 
@@ -26,7 +26,7 @@ export class LayoutComponent implements OnDestroy {
     filter((e): e is NavigationEnd => e instanceof NavigationEnd),
     map((e) => e.url),
     startWith(location.href),
-    map((url) => menus.length - menus.findIndex((m) => url.endsWith(m.path)))
+    map((url) => menus.find((m) => url.endsWith(m.path))?.index)
   );
 
   private clearPortal = this.router.events

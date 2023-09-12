@@ -27,6 +27,21 @@ const routes: Routes = [
         loadChildren: () =>
           import('./detail/detail.module').then((m) => m.DetailModule),
       },
+      {
+        path: 'detail1',
+        loadChildren: () =>
+          import('./detail/detail.module').then((m) => m.DetailModule),
+      },
+      {
+        path: 'detail2',
+        loadChildren: () =>
+          import('./detail/detail.module').then((m) => m.DetailModule),
+      },
+      {
+        path: 'detail3',
+        loadChildren: () =>
+          import('./detail/detail.module').then((m) => m.DetailModule),
+      },
     ],
   },
 ];

@@ -2,11 +2,12 @@ import { Component, HostBinding, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 export const menus = [
-  { name: '首页', path: '/' },
-  { name: '工厂', path: '/factory' },
-  { name: '公司简介', path: '/detail' },
-  { name: '荣誉资质', path: '' },
-  { name: '我们的客户', path: '' },
+  { index: 5, name: '我们的客户', path: '/detail1' },
+  { index: 4, name: '实验室', path: '/detail2' },
+  { index: 3, name: '首页', path: '/' },
+  { index: 2, name: '工厂', path: '/factory' },
+  { index: 1, name: '公司简介', path: '/detail' },
+  { index: 0, name: '荣誉资质', path: '/detail3' },
 ];
 
 @Component({
@@ -15,19 +16,23 @@ export const menus = [
   styleUrls: ['./circle-menu.component.less'],
 })
 export class CircleMenuComponent {
-  @Input() index = 1;
+  @Input() index: number | null | undefined = null;
 
   @HostBinding('style.transform') get transform() {
-    return `rotate(${this.index * 60}deg)`;
+    if (this.index !== null && this.index !== undefined) {
+      return `rotate(${this.index * 60}deg)`;
+    } else {
+      return '';
+    }
   }
 
   menus = menus;
   private router = inject(Router);
 
-  onClick(val: number) {
-    this.index = this.menus.length - val;
-    if (menus[val].path) {
-      this.router.navigate([menus[val].path]);
+  onClick(item: (typeof menus)[number]) {
+    this.index = item.index;
+    if (item.path) {
+      this.router.navigate([item.path]);
     }
   }
 }

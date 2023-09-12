@@ -8,7 +8,7 @@ import {
   Output,
   inject,
 } from '@angular/core';
-import { easeLinear, Selection, select, zoom } from 'd3';
+import { Selection, easeLinear } from 'd3';
 
 function lineEnter<T extends SVGGeometryElement>(
   line: Selection<T, any, any, any>,

@@ -38,8 +38,11 @@
           width="354"
           height="265"
         >
-          <div class="window" (click)="log()">
-            <div class="top">{{ current.area }}({{ current.line }})</div>
+          <div class="window">
+            <div class="top">
+              <span class="title">{{ current.area }}({{ current.line }})</span>
+              <span class="close" (click)="isShow = false"></span>
+            </div>
           </div>
         </foreignObject>
       </g>
