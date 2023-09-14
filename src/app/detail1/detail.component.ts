@@ -3,7 +3,7 @@ import { LayoutBackgroundService } from '../shared/layout/layout-background.serv
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-detail1',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.less'],
 })

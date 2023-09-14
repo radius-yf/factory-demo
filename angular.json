@@ -74,7 +74,8 @@
             "development": {
               "browserTarget": "factory-demo:build:development",
               "host": "127.0.0.1",
-              "port": 8080
+              "port": 8080,
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

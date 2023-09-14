@@ -17,11 +17,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./factory/factory.module').then((m) => m.FactoryModule),
       },
-      // {
-      //   path: 'logistics',
-      //   loadChildren: () =>
-      //     import('./logistics/logistics.module').then((m) => m.LogisticsModule),
-      // },
       {
         path: 'detail',
         loadChildren: () =>
@@ -30,17 +25,17 @@ const routes: Routes = [
       {
         path: 'detail1',
         loadChildren: () =>
-          import('./detail/detail.module').then((m) => m.DetailModule),
+          import('./detail1/detail.module').then((m) => m.DetailModule),
       },
       {
         path: 'detail2',
         loadChildren: () =>
-          import('./detail/detail.module').then((m) => m.DetailModule),
+          import('./detail1/detail.module').then((m) => m.DetailModule),
       },
       {
         path: 'detail3',
         loadChildren: () =>
-          import('./detail/detail.module').then((m) => m.DetailModule),
+          import('./detail1/detail.module').then((m) => m.DetailModule),
       },
     ],
   },

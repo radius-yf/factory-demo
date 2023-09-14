@@ -1,6 +1,6 @@
 <div class="head">
   <div class="right-top">
-    持续生产 <span> {{ daysBetween }} </span> 天
+    安全生产 <span> {{ daysBetween }} </span> 天
   </div>
   <ng-container *ngFor="let item of total; let last = last">
     <div class="item">
@@ -21,27 +21,31 @@
         <app-g2-line [data]="lineData"></app-g2-line>
       </div>
     </div>
-    <div class="window">
-      <div class="top">产品介绍视频</div>
+    <div class="window window-lg">
+      <div class="top">产线介绍视频</div>
       <div class="body video">
-        <video style="width: 100%; height: 100%"></video>
-        <div class="option">
-          <div (click)="prev()">&lt;</div>
-          <div>{{ current.line }}</div>
-          <div (click)="next()">&gt;</div>
-        </div>
+        <ng-container *ngIf="current.videoSrc">
+          <div class="video-item" *ngFor="let item of current.videoSrc">
+            <video [src]="item" autoplay loop controls></video>
+          </div>
+        </ng-container>
+      </div>
+      <div class="footer">
+        <div class="icon" (click)="prev()">&lt;</div>
+        <div class="name">{{ current.line }}</div>
+        <div class="icon" (click)="next()">&gt;</div>
       </div>
     </div>
-    <div class="window">
+    <div class="window window-sm">
       <div class="top">产线工作状况</div>
       <div class="grid-container">
-        <div class="grid-item">
+        <!-- <div class="grid-item">
           <img src="../../assets/1在线员工.png" alt="" />
           <div>
             <span class="title">在线员工</span>
             <span class="value" data-unit="人">{{ jobSum }}</span>
           </div>
-        </div>
+        </div> -->
         <div class="grid-item">
           <img src="../../assets/2在线设备.png" alt="" />
           <div>
@@ -56,19 +60,19 @@
             <span class="value" data-unit="次">{{ 2 }}</span>
           </div>
         </div>
-        <div class="grid-item">
+        <!-- <div class="grid-item">
           <img src="../../assets/4生产数量.png" alt="" />
           <div>
             <span class="title">生产数量/天</span>
             <span class="value" data-unit="件">{{ daySum }}</span>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
   <div class="right">
     <div class="window">
-      <div class="top">仓储/物流</div>
+      <div class="top">立库/连廊</div>
       <div class="body">
         <img
           src="../../assets/wuliu.gif"
@@ -78,7 +82,7 @@
       </div>
     </div>
     <div class="window">
-      <div class="top">当日动态销售情况</div>
+      <div class="top">当月销售情况</div>
       <div class="body">
         <div class="table">
           <div class="tr">
@@ -90,7 +94,9 @@
           <div class="tbody" #table>
             <div class="tr" *ngFor="let item of storeData">
               <div class="td" [title]="item.cInvName">{{ item.cInvName }}</div>
-              <div class="td" [title]="item.iQuantity">{{ item.iQuantity }}</div>
+              <div class="td" [title]="item.iQuantity">
+                {{ item.iQuantity }}
+              </div>
               <div class="td" [title]="item.cCusName">{{ item.cCusName }}</div>
               <div class="td" [title]="item.dDate">{{ item.dDate }}</div>
             </div>
@@ -101,7 +107,7 @@
     <div class="window">
       <div class="top">工厂动态下线</div>
       <div class="body">
-        <div class="table">
+        <div class="table ta-left">
           <div class="tr">
             <div class="th">产品名称</div>
             <div class="th">产品编码</div>

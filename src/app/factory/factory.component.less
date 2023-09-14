@@ -61,7 +61,8 @@
   flex: 1;
   display: flex;
   justify-content: space-between;
-  .left, .right {
+  .left,
+  .right {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -87,46 +88,63 @@
     width: 438px;
     height: 239px;
     overflow: hidden;
-    background-image: url(../../assets/左侧数据背景.png);
     color: #ffffff;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-image: url(../../assets/左侧数据背景.png);
+    &.window-lg {
+      background-image: url(../../assets/视频框.png);
+      height: 309px;
+    }
+    &.window-sm {
+      background-image: url(../../assets/信息框.png);
+      height: 149px;
+    }
+
 
     .body {
       padding: 0 4px;
       width: 100%;
-      height: calc(100% - 36px);
+      flex: 1;
       box-sizing: border-box;
       pointer-events: all;
       overflow: hidden;
       position: relative;
       &.video {
-        .option {
-          position: absolute;
-          bottom: 8px;
-          left: 0;
-          right: 0;
-          display: none;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          pointer-events: none;
-          > div {
-            pointer-events: all;
-            cursor: pointer;
-            user-select: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        .video-item {
+          overflow: hidden;
+          video {
+            width: 100%;
+            height: 100%;
           }
         }
-        &:hover .option {
-          display: flex;
-        }
+      }
+    }
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      line-height: 28px;
+      padding-bottom: 4px;
+      .name {
+        width: 220px;
+        text-align: center;
+      }
+      .icon {
+        cursor: pointer;
+        pointer-events: all;
+        user-select: none;
+        padding: 0 12px;
       }
     }
     .top {
       height: 36px;
       line-height: 36px;
-    }
-    table {
-      width: 100%;
     }
   }
 }
@@ -152,8 +170,8 @@
   height: calc(100% - 36px);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  
+  grid-template-rows: 1fr;
+
   .grid-item {
     color: #ffffff;
     display: flex;
@@ -185,6 +203,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  &.ta-left {
+    text-align: left;
+  }
   .tr {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

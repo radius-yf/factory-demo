@@ -11,7 +11,7 @@ export class HomeComponent implements OnInit {
   private bg = inject(LayoutBackgroundService);
   private router = inject(Router);
 
-  arr = [1, 2, 3, 4];
+  arr = [1, 2, 3, 4, 5];
   trackByFn: TrackByFunction<any> = (_: number, item: any) => {
     return item;
   };

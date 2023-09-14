@@ -6,6 +6,14 @@
         height="658"
         href="../../../assets/工厂布局.png"
       ></image>
+      <line
+        [ngClass]="[isShow ? '' : 'hidden']"
+        stroke="#123164"
+        [attr.x1]="current.x + 75"
+        [attr.y1]="current.y + 15"
+        [attr.x2]="125"
+        [attr.y2]="455"
+      ></line>
       <g *ngFor="let item of areas">
         <foreignObject
           [attr.x]="item.x"
@@ -22,26 +30,28 @@
           </div>
         </foreignObject>
       </g>
-
-      <line
-        [ngClass]="[isShow ? '' : 'hidden']"
-        stroke="#123164"
-        [attr.x1]="current.x + 75"
-        [attr.y1]="current.y + 15"
-        [attr.x2]="current.x + 75"
-        [attr.y2]="current.y - 275"
-      ></line>
-      <g [ngClass]="[isShow ? '' : 'hidden']">
-        <foreignObject
-          [attr.x]="current.x + 70"
-          [attr.y]="current.y - 270"
-          width="354"
-          height="265"
-        >
+      <g [ngClass]="[isShow ? '' : 'hidden']" d-zoom>
+        <foreignObject [attr.x]="120" [attr.y]="450" width="354" height="265">
           <div class="window">
             <div class="top">
               <span class="title">{{ current.area }}({{ current.line }})</span>
               <span class="close" (click)="isShow = false"></span>
+            </div>
+            <div class="body">
+              <ng-container *ngIf="current.text; else elsTpl">
+                <div class="title">{{ current.title }}</div>
+                <p *ngFor="let item of current.text; let last = last">
+                  <img
+                    *ngIf="current.imgSrc && last"
+                    [src]="current.imgSrc"
+                    alt=""
+                  />
+                  {{ item }}
+                </p>
+              </ng-container>
+              <ng-template #elsTpl>
+                <img *ngIf="current.imgSrc" [src]="current.imgSrc" alt="" />
+              </ng-template>
             </div>
           </div>
         </foreignObject>
