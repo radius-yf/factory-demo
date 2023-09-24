@@ -26,7 +26,7 @@
       <div class="body video">
         <ng-container *ngIf="current.videoSrc">
           <div class="video-item" *ngFor="let item of current.videoSrc">
-            <video [src]="item" autoplay loop controls></video>
+            <video [src]="item" autoplay muted loop controls></video>
           </div>
         </ng-container>
       </div>
