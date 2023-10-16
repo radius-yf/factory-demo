@@ -23,9 +23,9 @@ const routes: Routes = [
           import('./detail/detail.module').then((m) => m.DetailModule),
       },
       {
-        path: 'detail1',
+        path: 'customer',
         loadChildren: () =>
-          import('./detail1/detail.module').then((m) => m.DetailModule),
+          import('./customer/detail.module').then((m) => m.DetailModule),
       },
       {
         path: 'detail2',
@@ -33,9 +33,14 @@ const routes: Routes = [
           import('./detail1/detail.module').then((m) => m.DetailModule),
       },
       {
-        path: 'detail3',
+        path: 'honor',
         loadChildren: () =>
-          import('./detail1/detail.module').then((m) => m.DetailModule),
+          import('./honor/detail.module').then((m) => m.DetailModule),
+      },
+      {
+        path: 'safe',
+        loadChildren: () =>
+          import('./safe/safe.module').then((m) => m.SafeModule),
       },
     ],
   },
